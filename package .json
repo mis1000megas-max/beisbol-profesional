@@ -1,0 +1,15 @@
+{
+  "name": "beisbol-profesional",
+  "version": "1.0.0",
+  "description": "Juego Béisbol Profesional con servidor Node.js y base de datos Turso (opcional).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.17.4"
+  }
+}

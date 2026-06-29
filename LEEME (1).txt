@@ -1,0 +1,95 @@
+============================================================
+  BÉISBOL PROFESIONAL — Juego nuevo (servidor compartido)
+============================================================
+
+Juego aparte de Aventura Mental. Tiene su propio servidor y su
+propia base de datos. Usa el puerto 3001 (Aventura Mental usa el 3000),
+así que puedes tener los dos encendidos al mismo tiempo.
+
+ARCHIVOS (todos en la misma carpeta)
+  server.js    -> servidor + base de datos
+  index.html   -> el juego
+  data.json    -> se crea solo (usuarios y victorias)
+  LEEME.txt    -> este archivo
+
+------------------------------------------------------------
+PASO 1 — Node.js en la PC servidor
+------------------------------------------------------------
+  Descárgalo de https://nodejs.org (versión LTS) si no lo tienes.
+  Comprueba con:  node -v
+
+------------------------------------------------------------
+PASO 2 — Encender
+------------------------------------------------------------
+  Abre la terminal en la carpeta y escribe:
+        node server.js
+  Verás una dirección tipo  http://192.168.x.x:3001
+  Apágalo con Ctrl + C.
+
+------------------------------------------------------------
+PASO 3 — Jugar
+------------------------------------------------------------
+  - En esa PC:        http://localhost:3001
+  - Otros aparatos (misma Wi-Fi):  http://192.168.x.x:3001
+  Cada quien crea su cuenta.
+
+------------------------------------------------------------
+QUÉ TIENE
+------------------------------------------------------------
+  • Pantalla de inicio y cuentas con contraseña encriptada.
+  • Tu PELOTERO (elige tu personaje en el menú).
+  • MI CARRERA: eliges posición (cátcher, pícher, bateador,
+    1ra/2da/3ra) y juegas contra bots; cada victoria se guarda.
+  • MULTIJUGADOR con CÓDIGO DE SALA, hasta 8 jugadores en 2
+    equipos; los espacios vacíos se llenan con BOTS. La defensa
+    lanza automática y cada quien batea en su turno.
+  • Letrero gigante de STRIKE y HOME RUN con voz y celebración.
+  • Chat en la sala con MODERACIÓN: 3 avisos por groserías y al
+    tercero EXPULSA. El anfitrión es ADMIN y puede expulsar.
+  • Tabla de líderes por victorias.
+
+------------------------------------------------------------
+SEGURIDAD
+------------------------------------------------------------
+  Código limpio, sin malware ni "eval". El chat se escapa para
+  que nadie inyecte código, las contraseñas van encriptadas y
+  las peticiones tienen tamaño limitado.
+
+------------------------------------------------------------
+PENDIENTE (para cuando quieras)
+------------------------------------------------------------
+  • Voz por micrófono dentro del juego: necesita conexión segura
+    (https). Lo montamos aparte.
+  • Personajes 3D animados estilo arcade: por ahora es 2D propio
+    (no se puede copiar Baseball 9 ni usar a Tatis Jr real ni
+    música phonk con derechos).
+============================================================
+
+------------------------------------------------------------
+USAR TURSO (base de datos en la nube) — OPCIONAL
+------------------------------------------------------------
+El servidor ya viene listo para Turso. Si NO pones token, usa
+el archivo local data.json (funciona igual). Para usar Turso:
+
+  1) En la carpeta del juego, instala el paquete una sola vez:
+        npm install @libsql/client
+
+  2) Enciende el servidor pasando tu TOKEN de Turso (NO lo
+     escribas dentro del código; va como variable de entorno):
+
+     Windows (CMD):
+        set TURSO_TOKEN=tu_token_aqui && node server.js
+     Windows (PowerShell):
+        $env:TURSO_TOKEN="tu_token_aqui"; node server.js
+     Mac/Linux:
+        TURSO_TOKEN=tu_token_aqui node server.js
+
+  La URL ya está puesta: libsql://juego-benito-4.aws-us-west-2.turso.io
+  (si quieres cambiarla, usa también TURSO_URL=...)
+
+  Si conecta, verás:  "Base de datos: Turso conectado ✅"
+  El token lo sacas en tu panel de Turso (turso db tokens create).
+
+  IMPORTANTE: Turso guarda las cuentas y la tabla de líderes,
+  pero el servidor (node server.js) sigue siendo necesario para
+  servir el juego y el multijugador en vivo.
